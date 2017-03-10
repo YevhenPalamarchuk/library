@@ -1,0 +1,38 @@
+.header{
+	
+	hight: 130px; 
+	width: 100%; 
+	background: #bbbf1c; 
+	margin-top: 0px; 
+	padding:15px 0px 15px 0px;
+	margin:0 auto;
+}
+h1{
+	text-align: center;
+}
+.footer {
+    height: 30px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #ffffa6;
+    text-align: center;
+}
+.buttons {
+	border: 1px solid #666; 
+	border-radius: 5px; 
+	padding: 4px; 
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px; 
+	padding: 5px 10px; 
+	
+	margin-bottom: 15px;
+	background: #cccccc;
+}
+
+.bgroup{
+	margin:0 auto;
+	width:600px;
+	height:20px;
+}

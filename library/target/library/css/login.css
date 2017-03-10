@@ -1,0 +1,50 @@
+.loger {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+}
+.block {
+	margin:0 auto;
+	width:224px;
+	height:140px;
+}
+}
+html, body{
+	
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	
+}
+h2{
+	text-align:center;
+	width: 100%;
+}
+
+.buttons {
+	border: 1px solid #666; 
+	border-radius: 5px; 
+	padding: 4px; 
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px; 
+	padding: 5px 10px; 
+	
+	margin-bottom: 15px;
+	background: #cccccc;
+}
+img {
+
+    max-width:100%;
+
+}
+.buttons {
+	border: 1px solid #666; 
+	border-radius: 5px; 
+	padding: 4px; 
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px; 
+	padding: 5px 10px; 
+	
+	margin-bottom: 15px;
+	background: #cccccc;
+}
