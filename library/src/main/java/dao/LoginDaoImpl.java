@@ -12,21 +12,20 @@ import dbutil.DBConnection;
 import model.User;
 
 public class LoginDaoImpl implements LoginDao {
-	
+
 	private Connection connection;
 
 	public LoginDaoImpl() {
-		
-				DBConnection dbCon = new DBConnection();
-				try {
-					connection = dbCon.Connect2DB();
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		DBConnection dbCon = new DBConnection();
+		try {
+			connection = dbCon.Connect2DB();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
-	
+
 	@Override
 	public List<User> getUsers() {
 		List<User> users = new ArrayList<>();
@@ -68,7 +67,7 @@ public class LoginDaoImpl implements LoginDao {
 
 	@Override
 	public void addUser(User theUser) {
-		
+
 		PreparedStatement myStmt = null;
 
 		try {
@@ -90,9 +89,9 @@ public class LoginDaoImpl implements LoginDao {
 			// clean up JDBC objects
 			close(myStmt, null);
 		}
-		
+
 	}
-	
+
 	private void close(Statement myStmt, ResultSet myRs) {
 
 		try {
@@ -107,6 +106,47 @@ public class LoginDaoImpl implements LoginDao {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
+	}
+
+	@Override
+	public AuthentificationState doAuthentification(String login, String password, String ssid, long authentificationTime) {
+		AuthentificationState result = null;
+		User theUser = null;
+		List<User> usersList = getUsers();
+		for (int i = 0; i < usersList.size(); i++) {
+			theUser = usersList.get(i);
+			if (login != "" | theUser.getUserLogin().equals(login)) {
+				
+				if (theUser.getUserPass().equals(password)) {
+					PreparedStatement myStmt = null;
+
+					try {
+						// create sql for insert
+						String sql = "INSERT INTO authentication " + "(last_authentification, last_ssid) "
+								+ "values (?, ?)";
+
+						myStmt = connection.prepareStatement(sql);
+
+						// set the param values for the User
+						myStmt.setLong(1, authentificationTime);
+						myStmt.setString(2, ssid);
+
+						// execute sql insert
+						myStmt.execute();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						// clean up JDBC objects
+						close(myStmt, null);
+					}
+
+					result = AuthentificationState.SUCCESS;
+				}
+				result = AuthentificationState.PASSWORD_ERROR;
+			}
+			result = AuthentificationState.LOGIN_ERROR;
+		}
+		return result;
 	}
 
 }

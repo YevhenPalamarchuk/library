@@ -9,5 +9,9 @@ public interface LoginDao {
 	public List<User> getUsers();
 
 	public void addUser(User theUser);
+	
+	public AuthentificationState doAuthentification(String login, String password, String ssid, long authentificationTime);
+	
+	
 
 }

@@ -6,6 +6,8 @@ public class User {
 	private String userLogin;
 	private String userPass;
 	private long creationDate;
+	private long last_authentification;
+	private String last_ssid;
 	
 	public User(){}
 	
@@ -50,6 +52,23 @@ public class User {
 
 	public String getUserPass() {
 		return userPass;
+	}
+
+	
+	public long getLast_authentification() {
+		return last_authentification;
+	}
+
+	public void setLast_authentification(long last_authentification) {
+		this.last_authentification = last_authentification;
+	}
+
+	public String getLast_ssid() {
+		return last_ssid;
+	}
+
+	public void setLast_ssid(String last_ssid) {
+		this.last_ssid = last_ssid;
 	}
 
 	public void setUserPass(String userPass) {

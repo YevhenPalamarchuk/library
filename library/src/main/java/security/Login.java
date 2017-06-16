@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.AuthentificationState;
 import dao.LoginDaoImpl;
 import model.User;
 
@@ -79,31 +80,22 @@ public class Login extends HttpServlet {
 
 	private void login2Site(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		List<User> users = loginDaoImpl.getUsers();
-
 		String login = request.getParameter("login");
-		String pass = request.getParameter("pass");
-
-		if (users.size() != 0) {
-			for (int i = 0; i < users.size(); i++) {
-				if (login.equals(users.get(i).getUserLogin())) {
-					if (pass.equals(users.get(i).getUserPass())) {
-						HttpSession session = request.getSession(true);
-						session.setAttribute("l", login);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/list-book.jsp");
-						dispatcher.forward(request, response);
-					} else {
-						RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
-						dispatcher.forward(request, response);
-					}
-				}
-			}
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
+		String password = request.getParameter("pass");
+		HttpSession session = request.getSession(false);
+		if (session == null){
+			session = request.getSession(true);
+		}
+		AuthentificationState authentificationState = null; 
+		long authentificationTime = session.getCreationTime();
+		 authentificationState = loginDaoImpl.doAuthentification(login, password, session.getId(), authentificationTime);
+		
+		if (authentificationState == AuthentificationState.SUCCESS) {
+			session.setAttribute("l", login);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/list-book.jsp");
 			dispatcher.forward(request, response);
-
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/add-user.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/error.jsp");
 			dispatcher.forward(request, response);
 		}
 
