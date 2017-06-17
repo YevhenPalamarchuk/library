@@ -8,8 +8,6 @@
 <link href="css/style.css" rel="stylesheet" type="text/css">
 <link type="text/css" rel="stylesheet" href="css/add-book-style.css">
 
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/year_validation.js"></script>
-
 </head>
 <body>
 
@@ -19,8 +17,7 @@
 			<br>
 			<h2>Add Book</h2>
 			<br>
-			<form name="input_form" action="list-book.jsp" method="GET"
-				onsubmit="return validate_form();">
+			<form name="input_form" id="input_form" action="list-book.jsp" method="GET">
 
 				<input type="hidden" name="command" value="ADD" />
 
@@ -51,8 +48,7 @@
 							<td colspan="2" align="center"><input type="submit"
 								value="Save" class="save" /> <input type="button"
 								value="Back to List"
-								onclick="window.location.href='list-book.jsp';"
-								class="save" /></td>
+								onclick="window.location.href='list-book.jsp';" class="save" /></td>
 
 						</tr>
 
@@ -65,7 +61,10 @@
 		<div class="footer"><%@ include file="footer.jsp"%></div>
 	</div>
 
-
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/year_validation.js"></script>
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/js/input_validation.js"></script>
 </body>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/input_validation.js"></script>
+
 </html>

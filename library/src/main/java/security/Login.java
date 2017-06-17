@@ -83,13 +83,15 @@ public class Login extends HttpServlet {
 		String login = request.getParameter("login");
 		String password = request.getParameter("pass");
 		HttpSession session = request.getSession(false);
-		if (session == null){
+
+		if (session == null) {
 			session = request.getSession(true);
 		}
-		AuthentificationState authentificationState = null; 
+
+		AuthentificationState authentificationState = null;
 		long authentificationTime = session.getCreationTime();
-		 authentificationState = loginDaoImpl.doAuthentification(login, password, session.getId(), authentificationTime);
-		
+		authentificationState = loginDaoImpl.doAuthentification(login, password, session.getId(), authentificationTime);
+
 		if (authentificationState == AuthentificationState.SUCCESS) {
 			session.setAttribute("l", login);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/list-book.jsp");

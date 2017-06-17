@@ -1,4 +1,5 @@
 dbutil\DBConnection.class
+dao\AuthentificationState.class
 dao\LibraryDaoImpl.class
 dao\LoginDaoImpl.class
 security\Login.class

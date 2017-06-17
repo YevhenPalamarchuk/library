@@ -18,9 +18,9 @@ public class LibraryDaoImpl implements LibraryDao {
 
 	public LibraryDaoImpl() {
 		// get db connection
-		DBConnection dbCon = new DBConnection();
+		DBConnection dbCon = DBConnection.CONNECT;
 		try {
-			connection = dbCon.Connect2DB();
+			connection = dbCon.getConnection();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -30,27 +30,27 @@ public class LibraryDaoImpl implements LibraryDao {
 	public List<Book> getBooks() {
 
 		List<Book> books = new ArrayList<>();
-		Statement myStmt = null;
-		ResultSet myRs = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
 
 		try {
 			// create sql statement
 			String sql = "SELECT * FROM db_books ORDER BY id";
 
-			myStmt = connection.createStatement();
+			statement = connection.createStatement();
 
 			// execute query
-			myRs = myStmt.executeQuery(sql);
+			resultSet = statement.executeQuery(sql);
 
 			// process result set
-			while (myRs.next()) {
+			while (resultSet.next()) {
 
 				// retrieve data from result set row
-				int id = myRs.getInt("id");
-				String title = myRs.getString("title");
-				String author = myRs.getString("author");
-				String publisher = myRs.getString("publisher");
-				int year = myRs.getInt("year");
+				int id = resultSet.getInt("id");
+				String title = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				String publisher = resultSet.getString("publisher");
+				int year = resultSet.getInt("year");
 
 				// create new book object
 				Book tempBook = new Book(id, title, author, publisher, year);
@@ -63,50 +63,35 @@ public class LibraryDaoImpl implements LibraryDao {
 			e.printStackTrace();
 		} finally {
 			// close JDBC objects
-			close(myStmt, myRs);
+			closeResultSet(resultSet);
+			closeStatement(statement);
 		}
 		return books;
 	}
 
-	private void close(Statement myStmt, ResultSet myRs) {
-
-		try {
-			if (myRs != null) {
-				myRs.close();
-			}
-
-			if (myStmt != null) {
-				myStmt.close();
-			}
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		}
-	}
-
 	public void addBook(Book theBook) {
 
-		PreparedStatement myStmt = null;
+		PreparedStatement statement = null;
 
 		try {
 			// create sql for insert
 			String sql = "INSERT INTO db_books " + "(title, author, publisher,year) " + "values (?, ?, ?, ?)";
 
-			myStmt = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 
 			// set the param values for the book
-			myStmt.setString(1, theBook.getTitle());
-			myStmt.setString(2, theBook.getAuthor());
-			myStmt.setString(3, theBook.getPublisher());
-			myStmt.setInt(4, theBook.getYear());
+			statement.setString(1, theBook.getTitle());
+			statement.setString(2, theBook.getAuthor());
+			statement.setString(3, theBook.getPublisher());
+			statement.setInt(4, theBook.getYear());
 
 			// execute sql insert
-			myStmt.execute();
+			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// clean up JDBC objects
-			close(myStmt, null);
+			closeStatement(statement);
 		}
 	}
 
@@ -114,8 +99,8 @@ public class LibraryDaoImpl implements LibraryDao {
 
 		Book theBook = null;
 
-		PreparedStatement myStmt = null;
-		ResultSet myRs = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 		int bookId;
 
 		try {
@@ -126,20 +111,20 @@ public class LibraryDaoImpl implements LibraryDao {
 			String sql = "SELECT * FROM db_books WHERE id=?";
 
 			// create prepared statement
-			myStmt = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 
 			// set params
-			myStmt.setInt(1, bookId);
+			statement.setInt(1, bookId);
 
 			// execute statement
-			myRs = myStmt.executeQuery();
+			resultSet = statement.executeQuery();
 
 			// retrieve data from result set row
-			if (myRs.next()) {
-				String title = myRs.getString("title");
-				String author = myRs.getString("author");
-				String publisher = myRs.getString("publisher");
-				int year = myRs.getInt("year");
+			if (resultSet.next()) {
+				String title = resultSet.getString("title");
+				String author = resultSet.getString("author");
+				String publisher = resultSet.getString("publisher");
+				int year = resultSet.getInt("year");
 
 				// use the bookId during construction
 				theBook = new Book(bookId, title, author, publisher, year);
@@ -153,42 +138,43 @@ public class LibraryDaoImpl implements LibraryDao {
 			e.printStackTrace();
 		} finally {
 			// clean up JDBC objects
-			close(myStmt, myRs);
+			closeResultSet(resultSet);
+			closeStatement(statement);
 		}
 		return theBook;
 	}
 
 	public void updateBook(Book theBook) {
 
-		PreparedStatement myStmt = null;
+		PreparedStatement statement = null;
 
 		try {
 			// create SQL update statement
 			String sql = "update db_books " + "set title=?, author=?, publisher=? , year=? " + "where id=?";
 
 			// prepare statement
-			myStmt = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 
 			// set params
-			myStmt.setString(1, theBook.getTitle());
-			myStmt.setString(2, theBook.getAuthor());
-			myStmt.setString(3, theBook.getPublisher());
-			myStmt.setInt(4, theBook.getYear());
-			myStmt.setInt(5, theBook.getId());
+			statement.setString(1, theBook.getTitle());
+			statement.setString(2, theBook.getAuthor());
+			statement.setString(3, theBook.getPublisher());
+			statement.setInt(4, theBook.getYear());
+			statement.setInt(5, theBook.getId());
 
 			// execute SQL statement
-			myStmt.execute();
+			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// clean up JDBC objects
-			close(myStmt, null);
+			closeStatement(statement);
 		}
 	}
 
 	public void deleteBook(String theBookId) {
 
-		PreparedStatement myStmt = null;
+		PreparedStatement statement = null;
 
 		try {
 			// convert book id to int
@@ -198,19 +184,43 @@ public class LibraryDaoImpl implements LibraryDao {
 			String sql = "delete from db_books where id=?";
 
 			// prepare statement
-			myStmt = connection.prepareStatement(sql);
+			statement = connection.prepareStatement(sql);
 
 			// set params
-			myStmt.setInt(1, bookId);
+			statement.setInt(1, bookId);
 
 			// execute sql statement
-			myStmt.execute();
+			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// clean up JDBC code
-			close(myStmt, null);
+			closeStatement(statement);
 		}
 	}
-}
 
+
+
+	private void closeResultSet(ResultSet resultSet) {
+		if (resultSet != null) {
+			try {
+				resultSet.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+private void closeStatement(Statement statement) {
+	
+		if (statement != null) {
+			try {
+				statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+}
+}

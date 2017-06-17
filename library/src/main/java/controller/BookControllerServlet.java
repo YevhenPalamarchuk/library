@@ -45,7 +45,7 @@ public class BookControllerServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+//exception 
 		try {
 			// read the "command" parameter
 			String theCommand = request.getParameter("command");

@@ -1,3 +1,5 @@
+document.getElementById('input_form').addEventListener(() => validate_form());
+
 function validate_form() {
 	valid = true;
 	year = document.input_form.year.value;

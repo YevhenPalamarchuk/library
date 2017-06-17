@@ -17,9 +17,9 @@ public class LoginDaoImpl implements LoginDao {
 
 	public LoginDaoImpl() {
 
-		DBConnection dbCon = new DBConnection();
+		DBConnection dbCon = DBConnection.CONNECT;
 		try {
-			connection = dbCon.Connect2DB();
+			connection = dbCon.getConnection();
 
 		} catch (Exception e) {
 			e.printStackTrace();
