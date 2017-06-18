@@ -1,4 +1,4 @@
-package appsecurity;
+package security;
 
 import java.io.IOException;
 
@@ -12,12 +12,12 @@ import javax.servlet.http.HttpSession;
 import dao.SecurityDaoImpl;
 import model.User;
 
-public class Security extends HttpServlet {
+public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private SecurityDaoImpl securityDaoImpl;
 
-	public Security() {
+	public Login() {
 	}
 
 	@Override
@@ -75,10 +75,6 @@ public class Security extends HttpServlet {
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 		dispatcher.forward(request, response);
-
-	}
-
-	private void login2Site(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 	}
 

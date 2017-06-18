@@ -21,13 +21,13 @@ id="WebApp_ID" version="3.0">
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>Security</display-name>
-    <servlet-name>Security</servlet-name>
-    <servlet-class>appsecurity.Security</servlet-class>
+    <display-name>Login</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>security.Login</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Security</servlet-name>
-    <url-pattern>/Security</url-pattern>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
   </servlet-mapping>
 </web-app>
 

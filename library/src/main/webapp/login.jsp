@@ -20,7 +20,7 @@
 			<div class="loger">
 
 
-				<form name="input_form" action="Security" method="post">
+				<form name="input_form" action="Login" method="post">
 
 					<table>
 						<tbody>
