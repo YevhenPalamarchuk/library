@@ -7,6 +7,7 @@ public class Book {
 	private String author;
 	private String publisher;
 	private int year;
+	private int userId;
 	
 	public Book() {}
 
@@ -23,6 +24,16 @@ public class Book {
 		this.author = author;
 		this.publisher = publisher;
 		this.year = year;
+	}
+
+	public Book(int id, String title, String author, String publisher, int year, int userId) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.year = year;
+		this.userId = userId;
 	}
 
 	public int getId() {
@@ -65,10 +76,18 @@ public class Book {
 		this.year = year;
 	}
 
+	int getUserId() {
+		return userId;
+	}
+
+	void setUserId(int userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publisher=" + publisher + ", year="
-				+ year + "]";
+				+ year + ", userId=" + userId + "]";
 	}
 
 }

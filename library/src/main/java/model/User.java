@@ -6,8 +6,9 @@ public class User {
 	private String userLogin;
 	private String userPass;
 	private long creationDate;
-	private long last_authentification;
-	private String last_ssid;
+	private long lastAuthentication;
+	private String lastSSID;
+	private Role role = Role.USER;
 	
 	public User(){}
 	
@@ -34,6 +35,27 @@ public class User {
 		this.userPass = userPass;
 	}
 
+	public User(int id, String userLogin, String userPass, long creationDate, long lastAuthentication,
+			String lastSSID, Role role) {
+		this.id = id;
+		this.userLogin = userLogin;
+		this.userPass = userPass;
+		this.creationDate = creationDate;
+		this.lastAuthentication = lastAuthentication;
+		this.lastSSID = lastSSID;
+		this.role = role;
+	}
+
+	public User(String userLogin, String userPass, long creationDate, long lastAuthentication,
+			String lastSSID, Role role) {
+		this.userLogin = userLogin;
+		this.userPass = userPass;
+		this.creationDate = creationDate;
+		this.lastAuthentication = lastAuthentication;
+		this.lastSSID = lastSSID;
+		this.role = role;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -55,20 +77,20 @@ public class User {
 	}
 
 	
-	public long getLast_authentification() {
-		return last_authentification;
+	public long getLastAuthentication() {
+		return lastAuthentication;
 	}
 
-	public void setLast_authentification(long last_authentification) {
-		this.last_authentification = last_authentification;
+	public void setLast_authentication(long lastAuthentication) {
+		this.lastAuthentication = lastAuthentication;
 	}
 
-	public String getLast_ssid() {
-		return last_ssid;
+	public String getLastSSID() {
+		return lastSSID;
 	}
 
-	public void setLast_ssid(String last_ssid) {
-		this.last_ssid = last_ssid;
+	public void setLast_ssid(String lastSSID) {
+		this.lastSSID = lastSSID;
 	}
 
 	public void setUserPass(String userPass) {
@@ -83,10 +105,20 @@ public class User {
 		this.creationDate = creationDate;
 	}
 
+	Role getRole() {
+		return role;
+	}
+
+	void setRole(Role role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userLogin=" + userLogin + ", userPass=" + userPass + ", creationDate="
-				+ creationDate + "]";
+				+ creationDate + ", lastAuthentication=" + lastAuthentication + ", lastSSID=" + lastSSID + ", role="
+				+ role + "]";
 	}
+
 	
 }

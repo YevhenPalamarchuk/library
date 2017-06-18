@@ -199,8 +199,6 @@ public class LibraryDaoImpl implements LibraryDao {
 		}
 	}
 
-
-
 	private void closeResultSet(ResultSet resultSet) {
 		if (resultSet != null) {
 			try {
@@ -212,8 +210,8 @@ public class LibraryDaoImpl implements LibraryDao {
 
 	}
 
-private void closeStatement(Statement statement) {
-	
+	private void closeStatement(Statement statement) {
+
 		if (statement != null) {
 			try {
 				statement.close();
@@ -221,6 +219,6 @@ private void closeStatement(Statement statement) {
 				e.printStackTrace();
 			}
 		}
-	
-}
+
+	}
 }
