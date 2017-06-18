@@ -30,6 +30,13 @@ public class User {
 		this.creationDate = creationDate;
 	}
 	
+	public User(String userLogin, String userPass, long creationDate, Role role) {
+		this.userLogin = userLogin;
+		this.userPass = userPass;
+		this.creationDate = creationDate;
+		this.role = role;
+	}
+	
 	public User(String userLogin, String userPass) {
 		this.userLogin = userLogin;
 		this.userPass = userPass;

@@ -8,10 +8,9 @@ public interface SecurityDao {
 
 	public List<User> getUsers();
 
-	public void addUser(User theUser);
+	public void addUser(String login, String password, String role, long dateOfRegistration);
 	
 	public int doAuthentication(String login, String password, String ssid, long authenticationTime);
-	
 	
 
 }

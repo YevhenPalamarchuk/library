@@ -27,21 +27,25 @@ public class LibraryDaoImpl implements LibraryDao {
 		}
 	}
 
-	public List<Book> getBooks() {
+	@Override
+	public List<Book> getBooks(int userId) {
 
 		List<Book> books = new ArrayList<>();
-		Statement statement = null;
+		PreparedStatement statement = null;
 		ResultSet resultSet = null;
 
 		try {
 			// create sql statement
-			String sql = "SELECT * FROM db_books ORDER BY id";
+			String sql = "SELECT * FROM db_books WHERE user_id=?  ORDER BY id";
 
-			statement = connection.createStatement();
+			// create prepared statement
+			statement = connection.prepareStatement(sql);
 
-			// execute query
-			resultSet = statement.executeQuery(sql);
+			// set params
+			statement.setInt(1, userId);
 
+			// execute statement
+			resultSet = statement.executeQuery();
 			// process result set
 			while (resultSet.next()) {
 

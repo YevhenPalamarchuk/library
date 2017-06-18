@@ -6,7 +6,7 @@ import model.Book;
 
 public interface LibraryDao {
 
-	public List<Book> getBooks();
+	public List<Book> getBooks(int userId);
 
 	public void addBook(Book theBook);
 

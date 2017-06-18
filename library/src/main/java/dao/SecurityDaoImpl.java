@@ -47,11 +47,11 @@ public class SecurityDaoImpl implements SecurityDao {
 				long creationDate = resultSet.getLong("date_of_reg");
 				long lastAuthentication = resultSet.getLong("last_authentication");
 				String lastSSID = resultSet.getString("last_ssid");
+
 				// create new book object
 				User tempUser = new User(id, userLogin, userPass, creationDate, lastAuthentication, lastSSID, role);
 
 				// add it to the list of books
-
 				users.add(tempUser);
 			}
 
@@ -66,20 +66,21 @@ public class SecurityDaoImpl implements SecurityDao {
 	}
 
 	@Override
-	public void addUser(User theUser) {
+	public void addUser(String login, String password, String role, long dateOfRegistration) {
 
 		PreparedStatement statement = null;
 
 		try {
 			// create sql for insert
-			String sql = "INSERT INTO user " + "(login, pass, date_of_reg) " + "values (?, ?, ?)";
+			String sql = "INSERT INTO user " + "(login, pass, role, date_of_reg) " + "values (?, ?, ?,?)";
 
 			statement = connection.prepareStatement(sql);
 
 			// set the parameters values for the User
-			statement.setString(1, theUser.getUserLogin());
-			statement.setString(2, theUser.getUserPass());
-			statement.setLong(3, theUser.getCreationDate());
+			statement.setString(1, login);
+			statement.setString(2, password);
+			statement.setString(3, role);
+			statement.setLong(4, dateOfRegistration);
 
 			// execute SQL insert
 			statement.execute();
@@ -97,8 +98,7 @@ public class SecurityDaoImpl implements SecurityDao {
 		int result = 0;
 		User theUser = null;
 		List<User> usersList = getUsers();
-		
-		
+
 		for (int i = 0; i < usersList.size(); i++) {
 
 			theUser = usersList.get(i);
@@ -132,7 +132,7 @@ public class SecurityDaoImpl implements SecurityDao {
 					return theUser.getId();
 				} else {
 					// password error
-					return -1;				
+					return -1;
 				}
 			} else {
 				// login error

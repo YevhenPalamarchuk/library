@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,9 +20,7 @@
 			<div class="loger">
 
 
-				<form name="input_form" action="Security" method="post">
-
-					<input type="hidden" name="command" value="ADD" />
+				<form name="input_form" action="AddUser" method="post">
 
 					<table>
 						<tbody>
